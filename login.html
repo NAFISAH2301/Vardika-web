@@ -1,94 +1,204 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Halaman Login</title>
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .login-container {
-      background: white;
-      padding: 30px 40px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      width: 350px;
-      text-align: center;
-    }
-    .login-container h2 {
-      margin-bottom: 25px;
-      color: #333;
-    }
-    .input-group {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-    .input-group label {
-      display: block;
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 5px;
-    }
-    .input-group input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-    button {
-      width: 100%;
-      background: #2575fc;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #1b5edb;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registrasi | Vardika Web</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #1d976c, #93f9b9);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        img {
+            width: 155px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #1d976c;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            background: #1d976c;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #158b5d;
+        }
+
+        .toggle-link {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #1d976c;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="login-container">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <div class="input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" required>
-      </div>
-      <div class="input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" required>
-      </div>
-      <button type="submit">Masuk</button>
-    </form>
-  </div>
+    <div class="container">
+        <img src="images/wow.jpg" alt="Logo PT. Vardika Utama Indonesia">
+        <h2 id="formTitle">Login Vardika Web</h2>
 
-  <script>
-    // Simulasi login
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault(); // cegah reload
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
+        <!-- LOGIN FORM -->
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="loginUsername">Username</label>
+                <input type="text" id="loginUsername" required>
+            </div>
+            <div class="input-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" required>
+            </div>
+            <button type="submit">Masuk</button>
+            <p class="toggle-link" id="toRegister">Belum punya akun? Daftar di sini</p>
+        </form>
 
-      // Cek user & password (simulasi)
-      if (user === "admin" && pass === "123") {
-        alert("Login berhasil! Selamat datang, Admin 👋");
-        window.location.href = "dashboardadmin.html"; // arahkan ke dashboard
-      } else {
-        alert("Username atau password salah!");
-      }
-    });
-  </script>
+        <!-- REGISTER FORM -->
+        <form id="registerForm" class="hidden">
+            <div class="input-group">
+                <label for="regUsername">Username</label>
+                <input type="text" id="regUsername" required>
+            </div>
+            <div class="input-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" required>
+            </div>
+            <div class="input-group">
+                <label for="regConfirm">Konfirmasi Password</label>
+                <input type="password" id="regConfirm" required>
+            </div>
+            <button type="submit">Daftar</button>
+            <p class="toggle-link" id="toLogin">Sudah punya akun? Login di sini</p>
+        </form>
+    </div>
+
+    <script>
+        // Elemen
+        const loginForm = document.getElementById("loginForm");
+        const registerForm = document.getElementById("registerForm");
+        const toRegister = document.getElementById("toRegister");
+        const toLogin = document.getElementById("toLogin");
+        const formTitle = document.getElementById("formTitle");
+
+        // Ganti tampilan Login <-> Register
+        toRegister.addEventListener("click", () => {
+            loginForm.classList.add("hidden");
+            registerForm.classList.remove("hidden");
+            formTitle.textContent = "Registrasi Akun Baru";
+        });
+
+        toLogin.addEventListener("click", () => {
+            registerForm.classList.add("hidden");
+            loginForm.classList.remove("hidden");
+            formTitle.textContent = "Login Vardika Web";
+        });
+
+        // ================== REGISTER ==================
+        registerForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const username = document.getElementById("regUsername").value.trim();
+            const password = document.getElementById("regPassword").value;
+            const confirm = document.getElementById("regConfirm").value;
+
+            if (password !== confirm) {
+                alert("Password dan konfirmasi tidak cocok!");
+                return;
+            }
+
+            // Simpan ke localStorage
+            const users = JSON.parse(localStorage.getItem("vardikaUsers")) || [];
+            if (users.find(u => u.username === username)) {
+                alert("Username sudah digunakan!");
+                return;
+            }
+
+            users.push({ username, password });
+            localStorage.setItem("vardikaUsers", JSON.stringify(users));
+
+            alert("Registrasi berhasil! Silakan login sekarang.");
+            registerForm.reset();
+            toLogin.click();
+        });
+
+        // ================== LOGIN ==================
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const user = document.getElementById("loginUsername").value.trim();
+            const pass = document.getElementById("loginPassword").value;
+
+            // Admin default
+            if (user === "admin" && pass === "123") {
+                localStorage.setItem("vardikaUser", JSON.stringify({ username: user, role: "admin" }));
+                alert("Login berhasil! Selamat datang, Admin 👋");
+                window.location.href = "admin/dashboardadmin.html";
+                return;
+            }
+
+            // Cek user terdaftar
+            const users = JSON.parse(localStorage.getItem("vardikaUsers")) || [];
+            const found = users.find(u => u.username === user && u.password === pass);
+
+            if (found) {
+                localStorage.setItem("vardikaUser", JSON.stringify({ username: found.username, role: "user" }));
+                alert("Login berhasil! Selamat datang, " + found.username + " 👋");
+                window.location.href = "user/dashboard.html";
+            } else {
+                alert("Username atau password salah!");
+            }
+        });
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumen Ekspor | Vardika Export</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f6f3;
+            margin: 0;
+            color: #333;
+            /* TAMBAH: Efek Fade-In */
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in forwards;
+        }
+
+        /* TAMBAH: Keyframe Fade-In */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 130vh;
+            background-color: #007a3d;
+            color: white;
+            padding-top: 30px;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar img {
+            display: block;
+            margin: 0 auto 15px;
+            width: 70px;
+            border-radius: 50%;
+        }
+
+        .sidebar h4 {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+
+        .sidebar a {
+            color: #cce8dd;
+            display: block;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #006633;
+            color: #fff;
+            border-left: 4px solid #fff;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            margin-left: 250px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .navbar h5 {
+            margin: 0;
+            font-weight: 600;
+            color: #007a3d;
+        }
+
+        #datetime {
+            color: #007a3d;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Content */
+        .content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            /* TAMBAH: Transisi untuk efek hover */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        /* TAMBAH: Efek hover pada card */
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .card h5 {
+            font-weight: 600;
+            color: #007a3d;
+        }
+
+        .btn-add {
+            background-color: #007a3d;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .btn-add:hover {
+            background-color: #006633;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: #777;
+        }
+
+        /* Popup overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(3px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .popup {
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 12px;
+            width: 400px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .popup h5 {
+            color: #007a3d;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .popup input,
+        .popup select {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .popup button {
+            background-color: #007a3d;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .popup button:hover {
+            background-color: #006633;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <img src="../images/wow.jpg" alt="Logo">
+        <h4>Vardika Export</h4>
+        <a href="dashboardadmin.html"><i class="fa-solid fa-home me-2"></i>Dashboard</a>
+        <a href="kelolapengguna.html"><i class="fa-solid fa-users me-2"></i>Kelola Pengguna</a>
+        <a href="dataproduk.html"><i class="fa-solid fa-box me-2"></i>Data Produk</a>
+        <a href="pengiriman.html"><i class="fa-solid fa-ship me-2"></i>Pengiriman</a>
+        <a href="#" class="active"><i class="fa-solid fa-file-export me-2"></i>Dokumen Ekspor</a>
+        <a href="laporan.html"><i class="fa-solid fa-chart-line me-2"></i>Laporan</a>
+        <a href="login.php" style="color:#ffd9d9;"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
+    </div>
+
+    <div class="navbar">
+        <h5>Dokumen Ekspor</h5>
+        <div class="text-end">
+            <div id="datetime"></div>
+            <div class="fw-semibold text-success">PT. Vardika Utama Indonesia</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="card p-4 mb-4">
+            <h5 class="mb-3">Daftar Dokumen Ekspor</h5>
+            <button class="btn-add" id="openPopup"><i class="fa-solid fa-plus"></i> Tambah Dokumen</button>
+            <table class="table table-striped align-middle">
+                <thead class="table-success">
+                    <tr>
+                        <th>No</th>
+                        <th>Nomor Dokumen</th>
+                        <th>Nama Produk</th>
+                        <th>Negara Tujuan</th>
+                        <th>Tanggal Ekspor</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>EXP-2025-001</td>
+                        <td>Kopi Arabica Premium</td>
+                        <td>Jepang</td>
+                        <td>10 Januari 2025</td>
+                        <td><span class="badge bg-success">Disetujui</span></td>
+                        <td><button class="btn-delete"><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>EXP-2025-002</td>
+                        <td>Teh Hitam Nusantara</td>
+                        <td>Malaysia</td>
+                        <td>25 Januari 2025</td>
+                        <td><span class="badge bg-warning text-dark">Proses</span></td>
+                        <td><button class="btn-delete"><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer>© 2025 PT. Vardika Utama Indonesia | Sistem Impor & Ekspor</footer>
+    </div>
+
+    <div class="overlay" id="popupForm">
+        <div class="popup position-relative">
+            <i class="fa-solid fa-xmark btn-close" id="closePopup"
+                style="position:absolute; top:12px; right:15px; cursor:pointer;"></i>
+            <h5>Tambah Dokumen Ekspor</h5>
+            <form>
+                <input type="text" placeholder="Nomor Dokumen" required>
+                <input type="text" placeholder="Nama Produk" required>
+                <input type="text" placeholder="Negara Tujuan" required>
+                <input type="date" placeholder="Tanggal Ekspor" required>
+                <select required>
+                    <option value="">-- Pilih Status --</option>
+                    <option value="Proses">Proses</option>
+                    <option value="Disetujui">Disetujui</option>
+                    <option value="Ditolak">Ditolak</option>
+                </select>
+                <button type="submit">Simpan</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const popup = document.getElementById('popupForm');
+        document.getElementById('openPopup').onclick = () => popup.style.display = 'flex';
+        document.getElementById('closePopup').onclick = () => popup.style.display = 'none';
+        window.onclick = e => {
+            if (e.target === popup) popup.style.display = 'none';
+        };
+
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            const date = now.toLocaleDateString('id-ID', options);
+            const time = now.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('datetime').innerHTML = `${date} | ${time}`;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+
+</body>
+
+</html>
